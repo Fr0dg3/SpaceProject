@@ -1,15 +1,21 @@
 package de.fab.SpaceGame;
 
 import de.fab.SpaceGame.Level.Level;
-import de.fab.SpaceGame.utils.Coord;
+import de.fab.SpaceGame.gameAssets.Wall;
 import de.fab.SpaceGame.gameAssets.SpaceShip;
 import org.newdawn.slick.*;
+import org.newdawn.slick.geom.Point;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
+
 
 public class MainGame extends BasicGame{
 
+    public static final int SCREEN_WIDTH = 800;
+    public static final int SCREEN_HEIGHT = 600;
+
     SpaceShip spaceShip;
     Level level;
-
     /**
      * Create a new basic game
      *
@@ -22,7 +28,7 @@ public class MainGame extends BasicGame{
     public static void main(String[] args) {
         try {
             AppGameContainer container = new AppGameContainer(new MainGame("SpaceGame"));
-            container.setDisplayMode(1000,1000,false);
+            container.setDisplayMode(SCREEN_WIDTH,SCREEN_HEIGHT,false);
             container.setTargetFrameRate(60);
             container.start();
         } catch (SlickException e) {
@@ -35,13 +41,21 @@ public class MainGame extends BasicGame{
     @Override
     public void init(GameContainer container) throws SlickException {
         container.setVSync(true);
-        spaceShip = new SpaceShip(new Coord(100,100));
+        spaceShip = new SpaceShip(new Point(100,100));
         level = new Level();
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         spaceShip.update(container, delta);
+
+        /*****************Tests Fabian Collision**************************************************/
+        for (Wall wall : level.getWalls()) {
+            if (wall.getWallShape().intersects(spaceShip.getShip())){
+                System.out.println("HIT");
+                spaceShip.collide();
+            }
+        }
     }
 
     @Override

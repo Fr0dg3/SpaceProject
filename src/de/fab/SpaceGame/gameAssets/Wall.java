@@ -1,6 +1,6 @@
 package de.fab.SpaceGame.gameAssets;
 
-import de.fab.SpaceGame.utils.Coord;
+import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Wall {
@@ -8,7 +8,7 @@ public class Wall {
 
     Rectangle wallShape;
 
-    public Wall(Coord position, int width, int height){
+    public Wall(Point position, int width, int height){
         wallShape = new Rectangle(position.getX(), position.getY(), width, height);
     }
 

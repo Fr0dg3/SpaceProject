@@ -1,4 +1,4 @@
-package org.newdawn.slick.tests.spacegame;
+package org.newdawn.slick.tests.spaceProjectTests;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Point;

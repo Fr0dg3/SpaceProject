@@ -1,6 +1,5 @@
 package de.fab.SpaceGame.gameAssets;
 
-import de.fab.SpaceGame.utils.Coord;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Polygon;
@@ -12,10 +11,11 @@ public class SpaceShip {
     private Point shipTop;
     private float currentOffsetX = 0;
     private float currentOffsetY = 0;
-    private final static float SPEEDLIMIT = 5;
+    private boolean canMove = true;
+    private final static float SPEEDLIMIT = 10;
 
 
-    public SpaceShip(Coord startPoint){
+    public SpaceShip(Point startPoint){
         //Startpoint (e.g. 100,100)
         Polygon ship = new Polygon();
         ship.addPoint(startPoint.getX(),startPoint.getY());
@@ -27,10 +27,18 @@ public class SpaceShip {
         this.shipTop = new Point(ship.getPoints()[2],ship.getPoints()[3]);
     }
 
+    public void collide(){
+        currentOffsetY = 0;
+        currentOffsetX = 0;
+        //canMove = false;
+
+
+    }
+
     public void update(GameContainer container, int delta) throws SlickException {
         shipTop.setX(ship.getPoints()[2]);
         shipTop.setY(ship.getPoints()[3]);
-        if (container.getInput().isKeyDown(Input.KEY_UP)) {
+        if (container.getInput().isKeyDown(Input.KEY_UP) && canMove) {
             float xCenter = ship.getCenterX();
             float yCenter = ship.getCenterY();
             float xTop = shipTop.getX();
@@ -52,9 +60,11 @@ public class SpaceShip {
         }
         if (container.getInput().isKeyDown(Input.KEY_RIGHT)) {
             ship = (Polygon) ship.transform(Transform.createRotateTransform((float) Math.toRadians(5), ship.getCenterX(), ship.getCenterY()));
+            //canMove = true;
         }
         if (container.getInput().isKeyDown(Input.KEY_LEFT)) {
             ship = (Polygon) ship.transform(Transform.createRotateTransform((float) Math.toRadians(-5), ship.getCenterX(), ship.getCenterY()));
+            //canMove = true;
         }
 
         ship = (Polygon) ship.transform(Transform.createTranslateTransform(currentOffsetX,currentOffsetY));
@@ -63,15 +73,23 @@ public class SpaceShip {
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.setColor(Color.green);
         g.draw(ship);
-        g.drawString("CenterX = "+ship.getCenterX(),500,500);
-        g.drawString("CenterY = "+ship.getCenterY(),500,515);
-        int y = 530;
+        g.setColor(Color.red);
+        g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
+        //g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
+        //g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
+        g.setColor(Color.green);
+        g.drawString("CenterX = "+ship.getCenterX(),450,400);
+        g.drawString("CenterY = "+ship.getCenterY(),450,415);
+        int y = 430;
         for (int i = 0; i < ship.getPoints().length ; i++) {
-            g.drawString(""+ship.getPoints()[i] + " "+ ship.getPoints()[i],500,y);
+            g.drawString(""+ship.getPoints()[i] + " "+ ship.getPoints()[i],450,y);
             y+=15;
         }
-        g.drawString("ShipTopPoint = X =" +shipTop.getX()+" Y = "+shipTop.getY(),500,y);
+        g.drawString("ShipTopPoint = X =" +shipTop.getX()+" Y = "+shipTop.getY(),450,y);
 
     }
 
+    public Polygon getShip() {
+        return ship;
+    }
 }

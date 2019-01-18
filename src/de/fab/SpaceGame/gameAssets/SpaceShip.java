@@ -73,10 +73,12 @@ public class SpaceShip {
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.setColor(Color.green);
         g.draw(ship);
+
         g.setColor(Color.red);
+        g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX() + (ship.getCenterX() - shipTop.getX()) * 2,(shipTop.getY() * 2) - ship.getCenterY());
         g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
         //g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
-        //g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
+
         g.setColor(Color.green);
         g.drawString("CenterX = "+ship.getCenterX(),450,400);
         g.drawString("CenterY = "+ship.getCenterY(),450,415);

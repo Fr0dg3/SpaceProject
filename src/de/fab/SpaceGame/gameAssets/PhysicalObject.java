@@ -12,9 +12,9 @@ public abstract class PhysicalObject extends Entity{
         this.hasCollision = hasCollision;
     }
 
-    public void checkCollision(Shape player){
+    public void checkCollision(Shape player){ // Richtung ausgehend vom Raumschiff   -> |  == von Links
         //Down
-        if (player.getMaxY() > shape.getMinY() && 
+        if (player.getMaxY() > shape.getMinY() &&
                 player.getMinY() < shape.getMinY() &&
                 player.getCenterX() + player.getWidth() > shape.getCenterX() && player.getCenterX() < shape.getMaxX()) {
 

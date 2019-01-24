@@ -92,7 +92,7 @@ public class SpaceShip {
         g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
 
         g.setColor(Color.green);
-        g.drawString("CenterX = "+ship.getCenterX(),450,400);
+       /* g.drawString("CenterX = "+ship.getCenterX(),450,400);
         g.drawString("CenterY = "+ship.getCenterY(),450,415);
         int y = 430;
         for (int i = 0; i < ship.getPoints().length ; i++) {
@@ -100,8 +100,18 @@ public class SpaceShip {
             y+=15;
         }
         g.drawString("ShipTopPoint = X =" +shipTop.getX()+" Y = "+shipTop.getY(),450,y);
+        */
 
         g.drawString("" + hp, SCREEN_WIDTH - 50,10);
+
+
+
+        g.setColor(Color.magenta);
+        g.drawLine(ship.getMinX(), ship.getMinY(), ship.getMaxX(), ship.getMinY());
+        g.drawLine(ship.getMaxX(), ship.getMinY(), ship.getMaxX(), ship.getMaxY());
+        g.drawLine(ship.getMaxX(), ship.getMaxY(), ship.getMinX(), ship.getMaxY());
+        g.drawLine(ship.getMinX(), ship.getMaxY(), ship.getMinX(), ship.getMinY());
+
 
     }
 

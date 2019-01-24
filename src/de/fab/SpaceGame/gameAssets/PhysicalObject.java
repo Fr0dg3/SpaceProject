@@ -14,11 +14,12 @@ public abstract class PhysicalObject extends Entity{
 
     public void checkCollision(Shape player){
         //Down
-        if (player.getMaxY() > shape.getMinY() &&
+        if (player.getMaxY() > shape.getMinY() && 
                 player.getMinY() < shape.getMinY() &&
                 player.getCenterX() + player.getWidth() > shape.getCenterX() && player.getCenterX() < shape.getMaxX()) {
 
             player.setCenterY(shape.getCenterY() - player.getHeight());
+            System.out.println("DOWN");
 
             //Up
         } else if (player.getMinY() < shape.getMaxY() &&
@@ -26,6 +27,7 @@ public abstract class PhysicalObject extends Entity{
                 player.getCenterX() + player.getWidth() > shape.getCenterX() && player.getCenterX() < shape.getMaxX()) {
 
             player.setCenterY(shape.getCenterY() + shape.getHeight());
+            System.out.println("UP");
 
             //Left
         } else if (player.getMinX() < shape.getMaxX() &&
@@ -33,6 +35,7 @@ public abstract class PhysicalObject extends Entity{
                 player.intersects(shape)) {
 
             player.setCenterX(shape.getCenterX() + shape.getWidth());
+            System.out.println("LEFT");
 
             //Right
         } else if (player.getMaxX() < shape.getMinX() &&
@@ -40,6 +43,7 @@ public abstract class PhysicalObject extends Entity{
                 player.intersects(shape)) {
 
             player.setCenterX(shape.getCenterX() - player.getWidth());
+            System.out.println("RIGHT");
 
         }
     }

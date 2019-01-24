@@ -22,13 +22,13 @@ public class Level {
 
     public Level(){
         walls = new Wall[6];
-        walls[0] = new Wall(new Rectangle( 0,0, SCREEN_WIDTH, 5), true);
-        walls[1] = new Wall(new Rectangle( SCREEN_WIDTH - 5,0, 5, SCREEN_HEIGHT), true);
-        walls[2] = new Wall(new Rectangle( 0,SCREEN_HEIGHT - 5, SCREEN_WIDTH, 5), true);
-        walls[3] = new Wall(new Rectangle( 0,0, 5, SCREEN_HEIGHT), true);
+        walls[0] = new Wall(new Rectangle( 0,0, SCREEN_WIDTH, 1), true);
+        walls[1] = new Wall(new Rectangle( SCREEN_WIDTH - 5,0, 1, SCREEN_HEIGHT), true);
+        walls[2] = new Wall(new Rectangle( 0,SCREEN_HEIGHT - 5, SCREEN_WIDTH, 1), true);
+        walls[3] = new Wall(new Rectangle( 0,0, 1, SCREEN_HEIGHT), true);
 
-        walls[4] = new Wall(new Rectangle( 395,200, 10, 100), true);
-        walls[5] = new Wall(new Rectangle( 500,350, 50, 10), true);
+        walls[4] = new Wall(new Rectangle( 395,0, 1, SCREEN_HEIGHT), true);
+        walls[5] = new Wall(new Rectangle( 0,350, SCREEN_WIDTH, 1), true);
     }
 
     public void update(GameContainer container, int delta) throws SlickException {

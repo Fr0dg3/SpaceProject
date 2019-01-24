@@ -16,11 +16,7 @@ public class MainGame extends BasicGame{
 
     SpaceShip spaceShip;
     Level level;
-    /**
-     * Create a new basic game
-     *
-     * @param title The title for the game
-     */
+
     public MainGame(String title) {
         super(title);
     }
@@ -50,12 +46,9 @@ public class MainGame extends BasicGame{
         spaceShip.update(container, delta);
 
         /*****************Tests Fabian Collision**************************************************/
-        for (Wall wall : level.getWalls()) {
-            if (wall.getWallShape().intersects(spaceShip.getShip())){
-                System.out.println("HIT");
+        for (Wall wall : level.getWalls())
+            if (wall.getShape().intersects(spaceShip.getShip()))
                 spaceShip.collide();
-            }
-        }
     }
 
     @Override

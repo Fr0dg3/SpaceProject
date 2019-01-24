@@ -6,6 +6,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Point;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import static de.fab.SpaceGame.MainGame.SCREEN_HEIGHT;
 import static de.fab.SpaceGame.MainGame.SCREEN_WIDTH;
@@ -19,11 +21,14 @@ public class Level {
     }
 
     public Level(){
-        walls = new Wall[4];
-        walls[0] = new Wall(new Point( 0,0), SCREEN_WIDTH, 5);
-        walls[1] = new Wall(new Point( SCREEN_WIDTH - 5,0), 5, SCREEN_HEIGHT);
-        walls[2] = new Wall(new Point( 0,SCREEN_HEIGHT - 5), SCREEN_WIDTH, 5);
-        walls[3] = new Wall(new Point( 0,0), 5, SCREEN_HEIGHT);
+        walls = new Wall[6];
+        walls[0] = new Wall(new Rectangle( 0,0, SCREEN_WIDTH, 5), true);
+        walls[1] = new Wall(new Rectangle( SCREEN_WIDTH - 5,0, 5, SCREEN_HEIGHT), true);
+        walls[2] = new Wall(new Rectangle( 0,SCREEN_HEIGHT - 5, SCREEN_WIDTH, 5), true);
+        walls[3] = new Wall(new Rectangle( 0,0, 5, SCREEN_HEIGHT), true);
+
+        walls[4] = new Wall(new Rectangle( 395,200, 10, 100), true);
+        walls[5] = new Wall(new Rectangle( 500,350, 50, 10), true);
     }
 
     public void update(GameContainer container, int delta) throws SlickException {
@@ -31,12 +36,7 @@ public class Level {
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.setColor(Color.white);
-
-        for ( Wall wall : walls) {
-            g.fill(wall.getWallShape());
-        }
+        for ( Wall wall : walls)
+            wall.render(container, g);
     }
-
-
 }

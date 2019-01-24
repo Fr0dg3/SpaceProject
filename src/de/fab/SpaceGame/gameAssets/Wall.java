@@ -1,22 +1,23 @@
 package de.fab.SpaceGame.gameAssets;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
-public class Wall {
+public class Wall extends PhysicalObject{
 
 
-    Rectangle wallShape;
 
-    public Wall(Point position, int width, int height){
-        wallShape = new Rectangle(position.getX(), position.getY(), width, height);
+    public Wall(Shape shape, boolean hasCollision) {
+        super(shape, hasCollision);
     }
 
-    public Rectangle getWallShape() {
-        return wallShape;
-    }
-
-    public void setWallShape(Rectangle wallShape) {
-        this.wallShape = wallShape;
+    @Override
+    public void render(GameContainer container, Graphics g) {
+        g.setColor(Color.white);
+        super.render(container, g);
     }
 }

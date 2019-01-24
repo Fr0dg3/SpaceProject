@@ -5,6 +5,9 @@ import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
 
+import static de.fab.SpaceGame.MainGame.SCREEN_HEIGHT;
+import static de.fab.SpaceGame.MainGame.SCREEN_WIDTH;
+
 public class SpaceShip {
 
     private Polygon ship;
@@ -12,7 +15,12 @@ public class SpaceShip {
     private float currentOffsetX = 0;
     private float currentOffsetY = 0;
     private boolean canMove = true;
-    private final static float SPEEDLIMIT = 10;
+    private final static float SPEEDLIMIT = 5;
+    private int hp;
+    private int maxHp;
+    private float oldX;
+    private float oldY;
+
 
 
     public SpaceShip(Point startPoint){
@@ -25,17 +33,23 @@ public class SpaceShip {
 
         this.ship = ship;
         this.shipTop = new Point(ship.getPoints()[2],ship.getPoints()[3]);
+
+        maxHp = 100;
+        hp = maxHp;
     }
 
     public void collide(){
-        currentOffsetY = 0;
-        currentOffsetX = 0;
+       // currentOffsetY = 0;
+       // currentOffsetX = 0;
+        hp -= 10;
+        resetPos();
         //canMove = false;
-
-
     }
 
     public void update(GameContainer container, int delta) throws SlickException {
+        oldX = ship.getCenterX();
+        oldY = ship.getCenterY();
+
         shipTop.setX(ship.getPoints()[2]);
         shipTop.setY(ship.getPoints()[3]);
         if (container.getInput().isKeyDown(Input.KEY_UP) && canMove) {
@@ -43,13 +57,13 @@ public class SpaceShip {
             float yCenter = ship.getCenterY();
             float xTop = shipTop.getX();
             float yTop = shipTop.getY();
-            currentOffsetX = currentOffsetX + (xTop-xCenter)/120;
+            currentOffsetX += (xTop-xCenter)/120;
             if (currentOffsetX > SPEEDLIMIT) {
                 currentOffsetX = SPEEDLIMIT;
             } else if (currentOffsetX < -SPEEDLIMIT) {
                 currentOffsetX = -SPEEDLIMIT;
             }
-            currentOffsetY = currentOffsetY + (yTop-yCenter)/120;
+            currentOffsetY += (yTop-yCenter)/120;
             if (currentOffsetY > SPEEDLIMIT) {
                 currentOffsetY = SPEEDLIMIT;
             } else if (currentOffsetY < -SPEEDLIMIT) {
@@ -72,12 +86,10 @@ public class SpaceShip {
 
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.setColor(Color.green);
-        g.draw(ship);
+        g.fill(ship);
 
         g.setColor(Color.red);
-        g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX() + (ship.getCenterX() - shipTop.getX()) * 2,(shipTop.getY() * 2) - ship.getCenterY());
         g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
-        //g.drawLine(ship.getCenterX(),ship.getCenterY(),(shipTop.getX() * 2) - ship.getCenterX(),(shipTop.getY() * 2) - ship.getCenterY());
 
         g.setColor(Color.green);
         g.drawString("CenterX = "+ship.getCenterX(),450,400);
@@ -89,6 +101,14 @@ public class SpaceShip {
         }
         g.drawString("ShipTopPoint = X =" +shipTop.getX()+" Y = "+shipTop.getY(),450,y);
 
+        g.drawString("" + hp, SCREEN_WIDTH - 50,10);
+
+    }
+
+    void resetPos(){
+        //old position
+        ship.setX(oldX - ship.getCenterX());
+        ship.setY(oldY - ship.getCenterY());
     }
 
     public Polygon getShip() {

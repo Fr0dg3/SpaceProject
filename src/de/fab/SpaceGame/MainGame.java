@@ -46,9 +46,12 @@ public class MainGame extends BasicGame{
         spaceShip.update(container, delta);
 
         /*****************Tests Fabian Collision**************************************************/
-        for (Wall wall : level.getWalls())
-            if (wall.getShape().intersects(spaceShip.getShip()))
-                spaceShip.collide();
+       for (Wall wall : level.getWalls()) {
+           // if (wall.getShape().intersects(spaceShip.getShip()))
+           //   spaceShip.collide();
+           wall.checkCollision(spaceShip.getShip());
+       }
+
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.gui.MouseOverArea;
 
 
 public class MainGame extends BasicGame{
@@ -31,8 +32,6 @@ public class MainGame extends BasicGame{
             e.printStackTrace();
         }
     }
-
-
 
     @Override
     public void init(GameContainer container) throws SlickException {
